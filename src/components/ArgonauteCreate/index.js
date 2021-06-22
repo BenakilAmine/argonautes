@@ -1,43 +1,57 @@
-import React from "react";
-import { Form, Input, Button } from "antd";
+import React, { useState } from "react";
+import { Form, Input, Button, message, Space } from "antd";
+import database from "../../utils/database";
+const success = (value) => {
+  message.success(`Argonaute ${value.argonaute} was added successfully`);
+};
+function CreateArgonautes() {
+  const [argonaute, setArgonaute] = useState("");
 
-function index() {
-  const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 },
+  const onFinish = (value) => {
+    const argoDB = database.ref("argonautes");
+    if (!value) return;
+    argoDB.push(value);
+    success(value);
+    setArgonaute("");
   };
-  const tailLayout = {
-    wrapperCol: { offset: 8, span: 16 },
-  };
-  const onFinish = (values) => {
-    console.log("Success:", values);
-  };
-
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
   return (
-    <Form
-      {...layout}
-      name="basic"
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      layout="vertical"
-    >
-      <Form.Item
-        label="Nom de l'Argonaute"
-        name="username"
-        rules={[{ required: true, message: "Please input your username!" }]}
+    <>
+      <span>Nom de l'Argonaute</span>
+      <Form
+        name="basic"
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        layout="inline"
       >
-        <Input />
-      </Form.Item>
-      <Form.Item {...tailLayout}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+        <Form.Item
+          name="argonaute"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input
+            value={argonaute}
+            placeholder="Argonaute"
+            onChange={(e) => {
+              if (e.target.value) return;
+              setArgonaute(e.target.value);
+            }}
+          />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            Envoyer
+          </Button>
+        </Form.Item>
+      </Form>
+    </>
   );
 }
 
-export default index;
+export default CreateArgonautes;
