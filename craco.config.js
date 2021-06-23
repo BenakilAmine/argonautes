@@ -10,6 +10,8 @@ module.exports = {
             modifyVars: {
               "@primary-color": "#1DA57A",
               "@layout-header-height": "110px",
+              "@card-background": "#ec6c6d",
+              "@card-head-font-size": "25px",
             },
             javascriptEnabled: true,
           },

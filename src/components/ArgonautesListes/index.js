@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import database from "../../utils/database";
-import { Card, Col, Row } from "antd";
+import { Card, Col, Row, Button } from "antd";
 
 function ListesArgonautes() {
   const [argonautesListe, setArgonautesListe] = useState();
 
+  const deleteArgo = () => {
+    const argoDB = database.ref("argonautes");
+    argoDB.remove();
+  };
   useEffect(() => {
     const argoDB = database.ref("argonautes");
     argoDB.on("value", (snapshot) => {
@@ -23,15 +27,36 @@ function ListesArgonautes() {
   }, []);
   console.log("argonautesListe", argonautesListe);
   return (
-    <div style={{ backgroundColor: "orange" }}>
+    <div style={{ height: "48vh", overflow: "hidden scroll", width: "100%" }}>
       <div>
         <div className="site-card-wrapper">
           <Row gutter={[16, 16]}>
             {argonautesListe &&
               argonautesListe.map((item, index) => (
                 <Col span={8}>
-                  <Card title={`Argonaute number ${index}`} bordered={false}>
-                    <p>{item[0].argonaute}</p>
+                  <Card
+                    hoverable
+                    title={`Argonaute N°${index}`}
+                    bordered={true}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <p>Nom: {item[0].argonaute}</p>
+                      <Button
+                        onClick={() => {
+                          deleteArgo();
+                        }}
+                        type="primary"
+                        shape="circle"
+                        danger
+                      >
+                        X
+                      </Button>
+                    </div>
                   </Card>
                 </Col>
                 // return <p>{item[0].argonaute}</p>;

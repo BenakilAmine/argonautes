@@ -8,7 +8,12 @@ function index() {
   return (
     <Content
       className="content"
-      style={{ padding: "0 50px", backgroundColor: "blue" }}
+      style={{
+        padding: "0 50px",
+        height: "100vh",
+        overflow: "scoll",
+        width: "80vw",
+      }}
     >
       <h2>Ajouter un(e) Argonaute</h2>
       <ArgonauteCreate />

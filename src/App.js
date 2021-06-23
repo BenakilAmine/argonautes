@@ -23,7 +23,13 @@ function App() {
       {/* CONTENT */}
       <Content />
       {/* FOOTER */}
-      <Footer style={{ textAlign: "center", backgroundColor: "red" }}>
+      <Footer
+        style={{
+          textAlign: "center",
+          backgroundColor: "#001529",
+          color: "white",
+        }}
+      >
         Réalisé par Jason en Anthestérion de l'an 515 avant JC
       </Footer>
     </Layout>
