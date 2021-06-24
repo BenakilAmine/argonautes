@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Form, Input, Button, message, Space } from "antd";
+import { Form, Input, Button, message } from "antd";
+import { UserAddOutlined } from "@ant-design/icons";
 import database from "../../utils/database";
 
 const success = (value) => {
@@ -22,7 +23,7 @@ function CreateArgonautes() {
 
   return (
     <>
-      <span>Nom de l'Argonaute</span>
+      <span>Ajouter un Argonaute</span>
       <Form
         form={form}
         name="basic"
@@ -40,7 +41,7 @@ function CreateArgonautes() {
         >
           <Input
             value={argonaute}
-            placeholder="Argonaute"
+            placeholder="Ex: Jason"
             onChange={(e) => {
               if (e.target.value) return;
               setArgonaute(e.target.value);
@@ -48,8 +49,8 @@ function CreateArgonautes() {
           />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Envoyer
+          <Button icon={<UserAddOutlined />} type="primary" htmlType="submit">
+            Ajouter
           </Button>
         </Form.Item>
       </Form>

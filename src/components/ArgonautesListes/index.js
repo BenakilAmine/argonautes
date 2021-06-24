@@ -1,66 +1,86 @@
 import React, { useEffect, useState } from "react";
 import database from "../../utils/database";
-import { Card, Col, Row, Button } from "antd";
+import { Card, Col, Row, Button, Avatar } from "antd";
+import { UserOutlined, TeamOutlined } from "@ant-design/icons";
 
 function ListesArgonautes() {
   const [argonautesListe, setArgonautesListe] = useState();
 
   const deleteArgo = () => {
-    const argoDB = database.ref("argonautes");
+    const argoDB = database.ref("argonautes").child("-McxkmKuLUljEz8f2L1B");
+    console.log("argoDB", argoDB);
     argoDB.remove();
   };
+
   useEffect(() => {
     const argoDB = database.ref("argonautes");
     argoDB.on("value", (snapshot) => {
       let previousList = snapshot.val();
-      console.log("previousList", previousList?.argonaute);
       let liste = [];
       for (let key in previousList) {
-        console.log("key", ...[previousList[key]]);
         liste.push({ ...[previousList[key]] });
       }
-      console.log("data", liste);
-      // console.log("liste", liste);
-      // if (!previousList) return;
       setArgonautesListe(liste);
     });
   }, []);
+
   console.log("argonautesListe", argonautesListe);
   return (
-    <div style={{ height: "48vh", overflow: "hidden scroll", width: "100%" }}>
+    <div
+      style={{
+        width: "100%",
+        marginBottom: "10px",
+      }}
+    >
       <div>
+        <h2>
+          <Avatar>
+            <TeamOutlined />
+          </Avatar>{" "}
+          Membres de l'équipage
+        </h2>
         <div className="site-card-wrapper">
           <Row gutter={[16, 16]}>
             {argonautesListe &&
-              argonautesListe.map((item, index) => (
-                <Col span={8}>
-                  <Card
-                    hoverable
-                    title={`Argonaute N°${index}`}
-                    bordered={true}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <p>Nom: {item[0].argonaute}</p>
-                      <Button
-                        onClick={() => {
+              argonautesListe.map(
+                (item, index) => (
+                  console.log("item", argonautesListe),
+                  console.log("item", index),
+                  (
+                    <Col span={8}>
+                      <Card
+                        onClick={(e) => {
+                          console.log("e", e.target.value);
                           deleteArgo();
                         }}
-                        type="primary"
-                        shape="circle"
-                        danger
+                        avatar={<UserOutlined />}
+                        hoverable
+                        title={
+                          <>
+                            <Avatar>
+                              <UserOutlined />
+                            </Avatar>
+                            <span style={{ padding: 20 }}>
+                              {item[0]?.argonaute}
+                            </span>
+                          </>
+                        }
+                        bordered={true}
                       >
-                        X
+                        <p>{`Argonaute N°${index}`}</p>
+                      </Card>
+                      <Button
+                        onClick={(e) => {
+                          console.log("e", e.target.value);
+                          deleteArgo(e.target.value);
+                        }}
+                      >
+                        Delete
                       </Button>
-                    </div>
-                  </Card>
-                </Col>
-                // return <p>{item[0].argonaute}</p>;
-              ))}
+                    </Col>
+                  )
+                )
+              )}
           </Row>
         </div>
       </div>

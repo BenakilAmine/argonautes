@@ -9,16 +9,11 @@ function index() {
     <Content
       className="content"
       style={{
-        padding: "0 50px",
-        height: "100vh",
-        overflow: "scoll",
+        padding: "150px  50px 30px",
         width: "80vw",
       }}
     >
-      <h2>Ajouter un(e) Argonaute</h2>
       <ArgonauteCreate />
-
-      <h2>Membres de l'équipage</h2>
       <ArgonautesListes />
     </Content>
   );

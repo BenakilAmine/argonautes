@@ -6,9 +6,16 @@ function App() {
   const imgLogo =
     "https://www.wildcodeschool.com/assets/logo_main-e4f3f744c8e717f1b7df3858dce55a86c63d4766d5d9a7f454250145f097c2fe.png";
   return (
-    <Layout className="layout" theme="light" style={{ height: "100vh" }}>
+    <Layout className="layout" theme="light">
       {/* HEADER */}
-      <Header>
+      <Header
+        style={{
+          position: "fixed",
+          top: 0,
+          width: "100%",
+          zIndex: 1000,
+        }}
+      >
         <div
           style={{
             display: "flex",
@@ -28,6 +35,7 @@ function App() {
           textAlign: "center",
           backgroundColor: "#001529",
           color: "white",
+          padding: "15px 50px",
         }}
       >
         Réalisé par Jason en Anthestérion de l'an 515 avant JC
